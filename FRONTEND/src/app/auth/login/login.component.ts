@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,6 +12,12 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   error: any = null;
   constructor(private authService: AuthService) { }
+
+  // userDetails = this.fb.group({
+  //   email:['',[Validators.email,Validators.required]],
+  //   password:['',[Validators.minLength(6),Validators.required]],
+  //   name:["",Validators.minLength(3)]
+  // });
 
   ngOnInit(): void {
     this.error = null
@@ -32,6 +38,7 @@ export class LoginComponent implements OnInit {
     }
     const email = form.value.email;
     const password = form.value.password;
+    const name = form.value.name
 
     if (this.isLoginMode) {
       this.authService.signIn(email, password)
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
       form.reset()
     }
     else {
-      this.authService.createUser(email, password)
+      this.authService.createUser(email, password,name)
 
       form.reset()
     }

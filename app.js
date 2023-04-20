@@ -18,12 +18,8 @@ app.all('*', responseMiddleware);
 
 
 // routes
-const postRouter = require("./Routes/post");
 const userRoutes = require("./Routes/user");
-const profileRoutes = require("./Routes/profile");
-app.use("/api/posts", postRouter)
 app.use("/api/user", userRoutes);
-app.use("/api/profile", profileRoutes);
 app.use(cors({origin: '*'}));
 app.use(express.json())
 

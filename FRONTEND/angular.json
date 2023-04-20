@@ -1,9 +1,12 @@
 {
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "cli": {
+      "analytics": "4ba6ca97-1996-4468-83a7-89a6ea4c818b"
+    },
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "BlogApp-using-Mean": {
+        "User-master-mean": {
             "projectType": "application",
             "schematics": {},
             "root": "",
@@ -63,18 +66,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "BlogApp-using-Mean:build"
+                        "browserTarget": "User-master-mean:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "BlogApp-using-Mean:build:production"
+                            "browserTarget": "User-master-mean:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "BlogApp-using-Mean:build"
+                        "browserTarget": "User-master-mean:build"
                     }
                 },
                 "test": {
@@ -111,16 +114,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "BlogApp-using-Mean:serve"
+                        "devServerTarget": "User-master-mean:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "BlogApp-using-Mean:serve:production"
+                            "devServerTarget": "User-master-mean:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "BlogApp-using-Mean"
+    "defaultProject": "User-master-mean"
 }
