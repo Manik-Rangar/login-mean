@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,46 +9,53 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   isLoginMode = true;
-  isLoading = false;
   error: any = null;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private readonly fb:FormBuilder) { }
 
-  // userDetails = this.fb.group({
-  //   email:['',[Validators.email,Validators.required]],
-  //   password:['',[Validators.minLength(6),Validators.required]],
-  //   name:["",Validators.minLength(3)]
-  // });
+  userDetails = this.fb.group({
+    email:['',[Validators.email,Validators.required]],
+    password:['',[Validators.minLength(6),Validators.required]],
+    name:["",Validators.minLength(3)]
+  });
 
   ngOnInit(): void {
     this.error = null
     this.authService.err.subscribe(err => {
       this.error = err
-      this.isLoading = false
     })
   }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
+    if(!this.isLoginMode){
+      this.userDetails.controls["name"].setValidators([Validators.minLength(3),Validators.required])
+      this.userDetails.controls["name"].updateValueAndValidity()
+      // return 
+    }
+    else{
+      this.userDetails.controls["name"].setValidators([Validators.minLength(3)])
+      this.userDetails.controls["name"].updateValueAndValidity()
+    }
   }
 
-  onSubmit(form: NgForm) {
-    this.isLoading = true;
-    if (!form.valid) {
+  onSubmit() {
+    console.log(this.userDetails.valid)
+    if (!this.userDetails.valid) {
       return;
     }
-    const email = form.value.email;
-    const password = form.value.password;
-    const name = form.value.name
+
+    const email = this.userDetails.controls["email"].value;
+    const password = this.userDetails.controls["password"].value;
+    const name = this.userDetails.controls["name"].value
 
     if (this.isLoginMode) {
       this.authService.signIn(email, password)
-
-      form.reset()
+      this.userDetails.reset()
     }
     else {
       this.authService.createUser(email, password,name)
-
-      form.reset()
+      this.userDetails.reset()
+      this.onSwitchMode()
     }
   }
 

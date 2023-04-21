@@ -1,6 +1,5 @@
 
 module.exports = (req, res, next) => {
-    console.log("this is great")
   try {
     const oldSend = res.send;
 

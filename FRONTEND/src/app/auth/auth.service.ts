@@ -72,7 +72,6 @@ export class AuthService {
   createUser(email: string, password: string,name:string) {
 
     const authData: AuthData = { email, password ,name};
-    console.log(authData);
     
     this.http
       .post(BACKEND_URL + "signup", authData)

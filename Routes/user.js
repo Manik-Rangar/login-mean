@@ -8,7 +8,6 @@ const checkAuth = require("../middlewares/check-auth");
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-  console.log(res)
     bcrypt.hash(req.body.password, 10).then(hash => {
       const user = new User({
         email: req.body.email,
@@ -64,7 +63,7 @@ router.post("/signup", (req, res, next) => {
       }
       const token = jwt.sign(
         { email: fetchedUser.email, userId: fetchedUser._id },
-        "secret_this_should_be_longer",
+        "123456789",
         { expiresIn: "1h" }
       );
       res.status(200).send({
